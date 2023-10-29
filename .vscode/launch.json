@@ -5,10 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "firefox",
+            "type": "node",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "/Users/tihonpanasuk/VSJSprjkts/PiNodeVersion/Front/index.html"
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js"
         }
     ]
 }

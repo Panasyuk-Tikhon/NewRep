@@ -2,7 +2,9 @@ const fileSystem = require('fs');
 const http = require('http');
 const homePageOfSite = require('./pagesOfSite/homePage');
 const studentPage = require('./pagesOfSite/students');
+//const handleStaticFiles = require('./pagesOfSite/hand-static-files');
 const { error } = require('console');
+const handleStaticFiles = require('./pagesOfSite/hand-static-files');
 
 const requestHandler = (request, response) =>{
     const url = request.url;
@@ -14,7 +16,7 @@ const requestHandler = (request, response) =>{
             studentPage(request, response);
             break;
         default:
-            response.end();
+            handleStaticFiles(request, response);
             //break;
     }
     console.log(request.url);
