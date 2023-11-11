@@ -1,12 +1,31 @@
-const fileSystem = require('fs');
-const http = require('http');
+const mssql = require("mssql");
+//const { config } = require("process");
+
+const myConfig = {};
+
+
+
 
 const studentData = (request, response) =>{
-    const students = ['ivan', 'sergey'];
-    const serializedDate = JSON.stringify(students);
-        response.writeHead(200, {'Content-Type':'application/json'});
-        response.write(serializedDate);
-        response.end();
+    //const students = ['ivan', 'sergey'];
+
+    mssql.connect(myConfig, (error, result) =>{
+        if(error){
+            console.log("error !!!");
+            return;
+        }
+        console.log('connected to the db');
+        const studentsQuery = 'SELECT * FROM student';
+        mssql.query(studentsQuery, (error, result) => {
+            const students = result.recordset.map((s) => {
+                return s.name + " " + s['last name'];
+            });
+            const serializedDate = JSON.stringify(students);
+            response.writeHead(200, {'Content-Type':'application/json'});
+            response.write(serializedDate);
+            response.end();
+        });
+    });    
 }
 
 

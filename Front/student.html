@@ -6,12 +6,13 @@
     <body>
         <h1>Students</h1>
         <button onclick="showStudents()">button</button>
+        <div id="students-list"></div>
         <script>
             // function getData(url, handler){
                 
             // }
             function displayStudents(students){
-                    const studentsListHtml = students((student, index) => {
+                    const studentsListHtml = students.map((student, index) => {
                     return '<p>'+index+'-'+student+'</p>';
                     })
                 const finalHtml = studentsListHtml.join('-------------------------------');
