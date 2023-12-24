@@ -1,28 +1,23 @@
 const mssql = require("mssql");
 const config = require('./db-config');
-//const { config } = require("process");
+const dbService = require('./db-service');
+
 
 const studentData = (request, response) =>{
-    //const students = ['ivan', 'sergey'];
-
-    mssql.connect(config, (error, result) =>{
+    dbService.runQuery('SELECT * FROM student', (error, data) => {
         if(error){
-            console.log("error !!!");
-            return;
+            response.writeHead(500);
+            console.log('error');
+            return
         }
-        console.log('connected to the db');
-        const studentsQuery = 'SELECT * FROM student';
-        mssql.query(studentsQuery, (error, result) => {
-            const students = result.recordset.map((s) => {
-                return s.name + " " + s['last name'];
-            });
-            const serializedDate = JSON.stringify(students);
+        const studentsData = data.map((s)=> {
+            return s.name + " " + s['last name'];
+        });
+        const serializedDate = JSON.stringify(studentsData);
             response.writeHead(200, {'Content-Type':'application/json'});
             response.write(serializedDate);
             response.end();
-        });
-    });    
+    });
 }
-
 
 module.exports = studentData;

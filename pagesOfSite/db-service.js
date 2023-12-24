@@ -20,7 +20,6 @@ const runQuery = (query, callBack) => {
     });    
 }
 
-
 module.exports = {
     runQuery: runQuery
 };

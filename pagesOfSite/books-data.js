@@ -4,7 +4,6 @@ const dbService = require('./db-service');
 
 
 const booksData = (request, response) =>{
-    //const students = ['ivan', 'sergey'];
     dbService.runQuery('SELECT * FROM book', (error, data) => {
         if(error){
             response.writeHead(500);
