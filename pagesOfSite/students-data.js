@@ -1,15 +1,11 @@
 const mssql = require("mssql");
+const config = require('./db-config');
 //const { config } = require("process");
-
-const myConfig = {};
-
-
-
 
 const studentData = (request, response) =>{
     //const students = ['ivan', 'sergey'];
 
-    mssql.connect(myConfig, (error, result) =>{
+    mssql.connect(config, (error, result) =>{
         if(error){
             console.log("error !!!");
             return;

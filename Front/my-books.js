@@ -1,20 +1,24 @@
-console.log("hello world");
+function displayBooks(books){
+    const booksListHtml = books.map((book, index) => {
+    // return '<p>'+index+'-'+book.title+'('+book.year+')'+'</p>';
 
-function onClick(){
-    console.log('cleked');
-    setTimeout(()=>{
-        console.log("timeout Passed");
-    }, 3000);
+    return `<p> ${index+1} - ${book.title}  (${book.year}) </p>`;
+    });
+const finalHtml = booksListHtml.join('-------------------------------');
+document.getElementById('books-list').innerHTML = finalHtml;
 }
-function onWait(){
-    console.log("wait button clicked");
-    wait(5)
-}
-function wait(sec) {
-    console.log("start waiting");
-    const start = (new Date()).getTime();
-    while((new Date()).getTime() - start < sec*1000){
+const getBooks = () => {
+    
+    const req = fetch('http://localhost:4200/data/books');
+    req.then(
+        (data) => {
+            console.log('data - ', data)
+            return data.json()}
+    ).then(
+        (data) => {
+            console.log('data - ', data )
 
-    }
-    console.log("finish waiting");
+            displayBooks(data)
+        }
+    );
 }
